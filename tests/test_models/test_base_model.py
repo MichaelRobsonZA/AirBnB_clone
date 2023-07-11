@@ -26,6 +26,22 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(b1, BaseModel)
         self.assertNotEqual(self.b, b1)
 
+    def test_obj_creation_from_dict(self):
+        """Tests the creation of an instance from a dictionary"""
+        my_model_dict = self.b.to_dict()
+        self.assertIsInstance(my_model_dict, dict)
+        new = BaseModel(**my_model_dict)
+        self.assertIsInstance(new, BaseModel)
+        self.assertTrue(hasattr(new, 'id'))
+        self.assertTrue(hasattr(new, 'created_at'))
+        self.assertTrue(hasattr(new, 'updated_at'))
+
+        # Compare attribute names
+        b_attrs = dir(self.b)
+        new_attrs = dir(new)
+        self.assertEqual(set(b_attrs), set(new_attrs))
+        self.assertNotEqual(self.b, new)
+
     def test_id_attr(self):
         """Each object has a unique uuid, we test the presence of
         the id attribute
@@ -66,6 +82,7 @@ class TestBaseModel(unittest.TestCase):
             This tests the to_dict method and it's return value
         ::
         """
+        # Create a dictionary representation and confirm value types
         dict_rep = self.b.to_dict()
         self.assertIsInstance(dict_rep, dict)
         self.assertNotEqual(dict_rep, self.b.__dict__)
