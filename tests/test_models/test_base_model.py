@@ -9,7 +9,7 @@ class TestBaseModel(unittest.TestCase):
     def setUp(self):
         """Here we set up an instance to test the attributes
         and mmethods of BaseModel so that we don't have to
-        create an instance with every test case. 
+        create an instance with every test case
 
         Why? I'm glad you asked. To avoid repetition
         """
