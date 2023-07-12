@@ -17,7 +17,7 @@ class BaseModel:
         """
         self.id = str(uuid4())
         self.created_at = datetime.now()
-        self.updated_at = self.created_at
+        self.updated_at = datetime.now()
         if kwargs:
             for k, v in kwargs.items():
                 if k == "__class__":
