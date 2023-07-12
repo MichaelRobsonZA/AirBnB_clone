@@ -60,7 +60,9 @@ class TestBaseModel(unittest.TestCase):
         the object
         """
         self.assertIsInstance(self.b.updated_at, datetime.datetime)
-        self.assertEqual(self.b.created_at, self.b.updated_at)
+        first_updated_at = self.b.updated_at
+        self.b.save()
+        self.assertNotEqual(self.b.updated_at, first_updated_at)
 
     def test_str_method(self):
         """The overwritten str rep of the object is tested"""
