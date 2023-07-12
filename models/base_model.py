@@ -18,12 +18,15 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = self.created_at
-        if len(kwargs) != 0:
+        if kwargs:
             for k, v in kwargs.items():
+                if k == "__class__":
+                    continue
                 if k == "created_at" or k == "updated_at":
-                    self.__dict__[k] = datetime.fromisoformat(v)
+                    dt = datetime.fromisoformat(v)
+                    setattr(self, k, dt)
                 else:
-                    self.__dict__[k] = v
+                    setattr(self, k, v)
         else:
             models.storage.new(self)
 
