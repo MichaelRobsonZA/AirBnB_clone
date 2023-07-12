@@ -14,16 +14,16 @@ permissions:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10
+    - name: Set up Python 3.8
       uses: actions/setup-python@v3
       with:
-        python-version: "3.10"
+        python-version: "3.8.5"
     - name: Install pycodestyle
-      run: pip install pycodestyle
+      run: pip install pycodestyle==2.8.*
     - name: Lint with pycodestyle
       run: |
         pycodestyle .
