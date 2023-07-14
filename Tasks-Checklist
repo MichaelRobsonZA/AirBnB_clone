@@ -1,0 +1,224 @@
+Checklist for: 0x00. AirBnB clone - The console
+
+Task 2: 
+Create a BaseModel class
+Create models/base_model.py file.
+Implement the BaseModel class with the following methods:
+init
+save
+to_dict
+str
+Implement the initialization of created_at and updated_at attributes in the init method.
+Implement the save method to update the updated_at attribute and save the object to the storage system.
+Implement the to_dict method to return a dictionary representation of the object.
+Implement the str method to return a string representation of the object.
+Create unit tests for the BaseModel class and its methods.
+
+Task 3: 
+Create a FileStorage class
+Create models/engine/file_storage.py file.
+Implement the FileStorage class with the following methods:
+all
+new
+save
+reload
+Implement the all method to return the dictionary of objects.
+Implement the new method to add a new object to the storage dictionary.
+Implement the save method to serialize the objects to a JSON file.
+Implement the reload method to deserialize objects from the JSON file.
+Create unit tests for the FileStorage class and its methods.
+
+Task 4: 
+Create a Console class
+Create console.py file.
+Implement the HBNBCommand class, inheriting from cmd.Cmd.
+Implement the do_quit method to exit the console.
+Implement the do_EOF method to exit the console.
+Implement the emptyline method to handle empty lines.
+Create unit tests for the HBNBCommand class and its methods.
+
+Task 5: 
+Create a BaseModel from a dictionary
+Implement the to_dict method in the BaseModel class to convert an instance into a dictionary representation.
+Implement the init method in the BaseModel class to create an instance from a dictionary.
+Create unit tests for the to_dict and init methods of the BaseModel class.
+
+Task 6: 
+Serialize and deserialize instances
+Implement the save method in the BaseModel class to update the updated_at attribute and save the object to the storage system.
+Implement the reload method in the FileStorage class to deserialize objects from the JSON file.
+Create unit tests for the save and reload methods.
+
+Task 7: 
+Console commands create, show, destroy, all, and update
+Implement the do_create method in the HBNBCommand class to create a new instance of a given class.
+Implement the do_show method in the HBNBCommand class to display information about a specific instance.
+Implement the do_destroy method in the HBNBCommand class to delete a specific instance.
+Implement the do_all method in the HBNBCommand class to display information about all instances or instances of a specific class.
+Implement the do_update method in the HBNBCommand class to update attributes of a specific instance.
+Create unit tests for the console commands.
+
+Task 8: 
+Create a class User that inherits from BaseModel
+Create models/user.py file.
+Implement the User class inheriting from BaseModel.
+Add public class attributes: email, password, first_name, and last_name.
+Update FileStorage to handle serialization and deserialization of User objects.
+Update the command interpreter (console.py) to support CRUD operations for User objects.
+Create unit tests for the User class, FileStorage updates, and console command updates.
+
+Task 9: 
+Create the classes State, City, Amenity, Place, and Review that inherit from BaseModel
+Create models/state.py, models/city.py, models/amenity.py, models/place.py, and models/review.py files.
+Implement the State, City, Amenity, Place, and Review classes, each inheriting from BaseModel.
+Define public class attributes for each class.
+Create unit tests for each of the new classes.
+
+Task 10: 
+Update FileStorage to handle serialization and deserialization of the new classes
+Update models/engine/file_storage.py to handle serialization and deserialization of Place, State, City, Amenity, and Review objects.
+Create unit tests for the updated FileStorage class.
+
+Task 11: 
+Update the command interpreter (console.py) to retrieve all instances of a class
+Implement the do_all method in the HBNBCommand class to retrieve all instances of a class using <class name>.all().
+Create unit tests for the do_all method.
+
+Task 12: 
+Update the command interpreter (console.py) to count the number of instances of a class
+Implement the do_count method in the HBNBCommand class to count the number of instances of a class using <class name>.count().
+Create unit tests for the do_count method.
+
+Task 13: 
+Update the command interpreter (console.py) to retrieve an instance based on its ID
+Implement the do_show method in the HBNBCommand class to retrieve an instance based on its ID using <class name>.show(<id>).
+Create unit tests for the do_show method.
+
+Task 14: 
+Update the command interpreter (console.py) to destroy an instance based on its ID
+Implement the do_destroy method in the HBNBCommand class to destroy an instance based on its ID using <class name>.destroy(<id>).
+Create unit tests for the do_destroy method.
+
+Task 15: 
+Update the command interpreter (console.py) to update an instance based on its ID
+Implement the do_update method in the HBNBCommand class to update an instance based on its ID using <class name>.update(<id>, <attribute name>, <attribute value>).
+Create unit tests for the do_update method.
+
+Task 16: 
+Update the command interpreter (console.py) to update an instance based on its ID using a dictionary representation
+Implement the do_update method in the HBNBCommand class to update an instance based on its ID using <class name>.update(<id>, <dictionary representation>).
+Create unit tests for the do_update method.
+
+Task 17: Unittests for the Console!
+Write unit tests for the Console class (HBNBCommand) and its methods.
+The unit tests should cover all the features and functionality of the console.
+Consider using the unittest module to write the tests.
+Use the patch method from the unittest.mock module to intercept STDOUT and test the console's output.
+
+
+
+DONE & NEED TO BE DONE
+
+Task 2: 
+Create a BaseModel class
+BaseModel class: DONE
+__init__ method: DONE
+save method: DONE
+to_dict method: DONE
+__str__ method: DONE
+Unit tests for BaseModel: DONE
+
+Task 3:
+Create a FileStorage class
+FileStorage class: DONE
+all method: DONE
+new method: DONE
+save method: DONE
+reload method: DONE
+Unit tests for FileStorage: DONE
+
+Task 4: 
+Create a Console class
+Console class: DONE
+do_quit method: DONE
+do_EOF method: DONE
+emptyline method: DONE
+Unit tests for Console: DONE
+
+Task 5:
+Create a BaseModel from a dictionary
+to_dict method in BaseModel: DONE
+__init__ method in BaseModel: DONE
+Unit tests for to_dict and __init__ methods: DONE
+Task 6: Serialize and deserialize instances
+
+save method in BaseModel: DONE
+reload method in FileStorage: DONE
+Unit tests for save and reload methods: DONE
+
+Task 7: 
+Console commands create, show, destroy, all, and update
+do_create method in Console: DONE
+do_show method in Console: DONE
+do_destroy method in Console: DONE
+do_all method in Console: DONE
+do_update method in Console: DONE
+Unit tests for console commands: NEED TO BE DONE
+
+Task 8: 
+Create a class User that inherits from BaseModel
+User class: NEED TO BE DONE
+Update FileStorage for User objects: NEED TO BE DONE
+Update Console for User objects: NEED TO BE DONE
+Unit tests for User class, FileStorage updates, and Console updates: NEED TO BE DONE
+
+Task 9: 
+Create the classes State, City, Amenity, Place, and Review that inherit from BaseModel
+State class: NEED TO BE DONE
+City class: NEED TO BE DONE
+Amenity class: NEED TO BE DONE
+Place class: NEED TO BE DONE
+Review class: NEED TO BE DONE
+Unit tests for each class: NEED TO BE DONE
+
+Task 10: 
+Update FileStorage to handle serialization and deserialization of the new classes
+Update FileStorage for Place, State, City, Amenity, and Review objects: NEED TO BE DONE
+Unit tests for updated FileStorage: NEED TO BE DONE
+
+Task 11: 
+Update the command interpreter (console.py) to retrieve all instances of a class
+do_all method in Console: NEED TO BE DONE
+Unit tests for do_all method: NEED TO BE DONE
+
+Task 12: 
+Update the command interpreter (console.py) to count the number of instances of a class
+do_count method in Console: NEED TO BE DONE
+Unit tests for do_count method: NEED TO BE DONE
+
+Task 13: 
+Update the command interpreter (console.py) to retrieve an instance based on its ID
+do_show method in Console: NEED TO BE DONE
+Unit tests for do_show method: NEED TO BE DONE
+
+Task 14: 
+Update the command interpreter (console.py) to destroy an instance based on its ID
+do_destroy method in Console: NEED TO BE DONE
+Unit tests for do_destroy method: NEED TO BE DONE
+
+Task 15: 
+Update the command interpreter (console.py) to update an instance based on its ID
+do_update method in Console: NEED TO BE DONE
+Unit tests for do_update method: NEED TO BE DONE
+
+Task 16: 
+Update the command interpreter (console.py) to update an instance based on its ID using a dictionary representation
+do_update method in Console: NEED TO BE DONE
+Unit tests for do_update method: NEED TO BE DONE
+
+Task 17: 
+Unittests for the Console!
+Write unit tests for the Console class (HBNBCommand) and its methods: NEED TO BE DONE
+The unit tests should cover all the features and functionality of the console: NEED TO BE DONE
+Consider using the unittest module to write the tests: NEED TO BE DONE
+Use the patch method from the unittest.mock module to intercept STDOUT and test the console's output: NEED TO BE DONE
