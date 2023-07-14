@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+<<<<<<< HEAD
 """Defines the HBnB console."""
 import cmd
 import re
@@ -208,4 +209,29 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == "__main__":
+=======
+"""Entry point of the command interpreter"""
+
+import cmd
+
+
+class HBNBCommand(cmd.Cmd):
+    """Class definition"""
+    prompt = '(hbnb) '
+
+    def do_quit(self, arg):
+        """Quit command to exit the program"""
+        return True
+
+    def do_EOF(self, arg):
+        """Exit console"""
+        return True
+
+    def emptyline(self):
+        """shouldn't execute anything"""
+        pass
+
+
+if __name__ == '__main__':
+>>>>>>> 61ae25d (Implemented console.py with command interpreter functionality, custom prompt, quit, EOF, and help commands. This should Complete Task 6. Console 0.0.1.)
     HBNBCommand().cmdloop()
