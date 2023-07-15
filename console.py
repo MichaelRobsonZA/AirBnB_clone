@@ -5,11 +5,23 @@ import re
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 from models.state import State
+from models.city import City
 from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 def parse(arg):
+    """Parse the input arguments and return a list of parsed tokens.
+
+    Args:
+        arg (str): The input argument string.
+
+    Returns:
+        list: A list of parsed tokens.
+    """
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
     if curly_braces is None:
@@ -37,8 +49,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __classes = {
         "BaseModel",
+        "User",
         "State",
-        "Place"
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
     }
 
     def emptyline(self):
@@ -46,7 +62,14 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def default(self, arg):
-        """Default behavior for cmd module when input is invalid"""
+        """Default behavior for cmd module when input is invalid.
+
+        Args:
+            arg (str): The input argument string.
+
+        Returns:
+            bool: False.
+        """
         argdict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -67,18 +90,34 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_quit(self, arg):
-        """Quit command to exit the program."""
+        """Quit command to exit the program.
+
+        Args:
+            arg (str): The input argument string.
+
+        Returns:
+            bool: True.
+        """
         return True
 
     def do_EOF(self, arg):
-        """EOF signal to exit the program."""
+        """EOF signal to exit the program.
+
+        Args:
+            arg (str): The input argument string.
+
+        Returns:
+            bool: True.
+        """
         print("")
         return True
 
     def do_create(self, arg):
-        """Create a new class instance and print its id.
+        """Usage: create <class>
+        Create a new class instance and print its id.
 
-        Usage: create <class>
+        Args:
+            arg (str): The input argument string.
         """
         argl = parse(arg)
         if len(argl) == 0:
@@ -90,9 +129,11 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_show(self, arg):
-        """Display the string representation of a class instance of a given id.
+        """Usage: show <class> <id> or <class>.show(<id>)
+        Display the string representation of a class instance of a given id.
 
-        Usage: show <class> <id> or <class>.show(<id>)
+        Args:
+            arg (str): The input argument string.
         """
         argl = parse(arg)
         objdict = storage.all()
@@ -108,9 +149,11 @@ class HBNBCommand(cmd.Cmd):
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, arg):
-        """Delete a class instance of a given id.
+        """Usage: destroy <class> <id> or <class>.destroy(<id>)
+        Delete a class instance of a given id.
 
-        Usage: destroy <class> <id> or <class>.destroy(<id>)
+        Args:
+            arg (str): The input argument string.
         """
         argl = parse(arg)
         objdict = storage.all()
@@ -127,9 +170,12 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
-        """Display string representations of instances.
+        """Usage: all or all <class> or <class>.all()
+        Display string representations of all instances of a given class.
+        If no class is specified, displays all instantiated objects.
 
-        Usage: all or all <class> or <class>.all()
+        Args:
+            arg (str): The input argument string.
         """
         argl = parse(arg)
         if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
@@ -144,9 +190,11 @@ class HBNBCommand(cmd.Cmd):
             print(objl)
 
     def do_count(self, arg):
-        """Retrieve the number of instances of a given class.
+        """Usage: count <class>
+        Retrieve the number of instances of a given class.
 
-        Usage: count <class> or <class>.count()
+        Args:
+            arg (str): The input argument string.
         """
         argl = parse(arg)
         count = 0
@@ -156,12 +204,13 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def do_update(self, arg):
-        """Update a class instance of a given id.
+        """Usage: update <class> <id> <attribute> <value>
+                 <class>.update(<id>, <attribute>, <value>)
+                 <class>.update(<id>, <dictionary>)
+        Update a class instance of a given id.
 
-        Usage:
-            update <class> <id> <attribute_name> <attribute_value>
-            update <class>.update(<id>, <attribute_name>, <attribute_value>)
-            update <class>.update(<id>, <dictionary>)
+        Args:
+            arg (str): The input argument string.
         """
         argl = parse(arg)
         objdict = storage.all()
@@ -182,28 +231,16 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
             return False
         if len(argl) == 3:
-            try:
-                type(eval(argl[2])) != dict
-            except NameError:
-                print("** value missing **")
-                return False
+            print("** value missing **")
+            return False
 
-        if len(argl) == 4:
-            obj = objdict["{}.{}".format(argl[0], argl[1])]
-            if argl[2] in obj.__class__.__dict__.keys():
-                valtype = type(obj.__class__.__dict__[argl[2]])
-                obj.__dict__[argl[2]] = valtype(argl[3])
-            else:
-                obj.__dict__[argl[2]] = argl[3]
-        elif type(eval(argl[2])) == dict:
-            obj = objdict["{}.{}".format(argl[0], argl[1])]
-            for k, v in eval(argl[2]).items():
-                if (k in obj.__class__.__dict__.keys() and
-                        type(obj.__class__.__dict__[k]) in {str, int, float}):
-                    valtype = type(obj.__class__.__dict__[k])
-                    obj.__dict__[k] = valtype(v)
-                else:
-                    obj.__dict__[k] = v
+        obj = objdict["{}.{}".format(argl[0], argl[1])]
+        if argl[2] in obj.__class__.__dict__.keys():
+            valtype = type(obj.__class__.__dict__[argl[2]])
+            obj.__dict__[argl[2]] = valtype(argl[3])
+        else:
+            obj.__dict__[argl[2]] = argl[3]
+
         storage.save()
 
 
