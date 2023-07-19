@@ -125,8 +125,9 @@ class HBNBCommand(cmd.Cmd):
         elif argl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            print(eval(argl[0])().id)
-            storage.save()
+            instance = eval(argl[0])()
+            instance.save()
+            print(instance.id)
 
     def do_show(self, arg):
         """Usage: show <class> <id> or <class>.show(<id>)
@@ -166,7 +167,7 @@ class HBNBCommand(cmd.Cmd):
         elif "{}.{}".format(argl[0], argl[1]) not in objdict.keys():
             print("** no instance found **")
         else:
-            del storage.all()["{}.{}".format(argl[0], argl[1])]
+            del objdict["{}.{}".format(argl[0], argl[1])]
             storage.save()
 
     def do_all(self, arg):
@@ -184,9 +185,9 @@ class HBNBCommand(cmd.Cmd):
             objl = []
             for obj in storage.all().values():
                 if len(argl) > 0 and argl[0] == obj.__class__.__name__:
-                    objl.append(obj.__str__())
+                    objl.append(str(obj))
                 elif len(argl) == 0:
-                    objl.append(obj.__str__())
+                    objl.append(str(obj))
             print(objl)
 
     def do_count(self, arg):
@@ -241,7 +242,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             obj.__dict__[argl[2]] = argl[3]
 
-        storage.save()
+        obj.save()
 
 
 if __name__ == "__main__":
